@@ -1,17 +1,19 @@
-# tests/problem3/CMakeLists.txt
+# Automatically detect the problem name from the folder name
+get_filename_component(PROBLEM_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
 # Add the test executable
-add_executable(test_problem3 test.cpp)
+add_executable(test_${PROBLEM_NAME} test.cpp)
 
 # Include the directory containing solution.hpp
-include_directories(${SOLUTIONS_DIR}/problem3)
+include_directories(${SOLUTIONS_DIR}/${PROBLEM_NAME})
 
 # Link the solution file
-target_sources(test_problem3 PRIVATE ${SOLUTIONS_DIR}/problem3/solution.cpp)
+target_sources(test_${PROBLEM_NAME} PRIVATE ${SOLUTIONS_DIR}/${PROBLEM_NAME}/solution.cpp)
 
 # Link to Google Test or any required libraries
 find_package(GTest REQUIRED)
-target_link_libraries(test_problem3 PRIVATE GTest::GTest GTest::Main)
+target_link_libraries(test_${PROBLEM_NAME} PRIVATE GTest::GTest GTest::Main)
 
 # Register the test with CTest
-add_test(NAME test_problem3 COMMAND test_problem3)
+add_test(NAME test_${PROBLEM_NAME} COMMAND test_${PROBLEM_NAME})
+
