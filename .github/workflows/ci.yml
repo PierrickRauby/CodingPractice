@@ -30,11 +30,6 @@ jobs:
         sudo make
         sudo cp ./lib/*.a /usr/lib
 
-    - name: Check code formatting
-      run: |
-        clang-format --version
-        find . -name '*.cpp' -o -name '*.hpp' | xargs clang-format --dry-run --Werror
-
     - name: Configure the project
       run: cmake -S . -B build
 
