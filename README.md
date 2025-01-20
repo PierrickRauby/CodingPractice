@@ -40,6 +40,13 @@ cd CodingPractice
     ctest --output-on-failure
     ```
 
+### Branches descriptions
+
+- main: the main branch of the repo
+- structureDev: dev branch for the structure of the repo
+- solutions: where you can find some of the solutions to the problems
+- dev: where you can test the solution of the problem you are working on
+
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for bug fixes, improvements, or new problem solutions.
