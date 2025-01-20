@@ -5,10 +5,14 @@ on:
     branches:
       - main
       - structureDev
+      - solutions
+      - dev
   pull_request:
     branches:
       - main
       - structureDev
+      - solutions
+      - dev
 
 jobs:
   build:
