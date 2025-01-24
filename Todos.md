@@ -6,5 +6,5 @@
 - [x] Add solutions and dev branches to pipelines
 - [x] Add  a script that tell you what problems are still to do
 - [ ] Working on adding more problems solutions in the solution branch
-- [ ] Investigate HomeBrew package usefulness 
+- [ ] Investigate HomeBrew package usefulness  (in progress)
 - [ ] clarify the use of each branch /dev/solutions/...
