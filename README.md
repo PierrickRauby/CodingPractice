@@ -64,4 +64,5 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 - [x] Add  a script that tell you what problems are still to do
 - [x] clarify the use of each branch /dev/solutions/...
 - [ ] Working on adding more problems solutions in the solution branch
+- [ ] Configure Test to run automatically on all branches
 - [ ] Investigate HomeBrew package usefulness  (in progress)
