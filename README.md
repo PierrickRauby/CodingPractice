@@ -11,10 +11,10 @@ A repository to store coding practice problems, solutions, and examples. It incl
 
 ## Branches descriptions
 
-- [ ]  main: the main branch of the repo
-- [ ] structureDev: dev branch for the structure of the repo
-- [ ] solutions: where you can find some of the solutions to the problems
-- [ ] dev: where you can test the solution of the problem you are working on
+- main: The stable branch containing the latest validated changes to the test and infrastructure, this branch **does not contain** solutions.
+- structureDev: Development branch for modifying and improving the repository's structure, such as organizing files, updating build systems, or refining the CI/CD pipeline.
+- solutions: Contains implemented solutions to coding problems. This branch is updated with verified solutions after testing.
+- dev: A working branch for testing and developing solutions before they are finalized and merged into the solutions branch. Use this branch when working on a new problem.
 
 ## How to Use
 
@@ -62,6 +62,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 - [x] Create a new branch with solutions to the problems
 - [x] Add solutions and dev branches to pipelines
 - [x] Add  a script that tell you what problems are still to do
+- [x] clarify the use of each branch /dev/solutions/...
 - [ ] Working on adding more problems solutions in the solution branch
 - [ ] Investigate HomeBrew package usefulness  (in progress)
-- [ ] clarify the use of each branch /dev/solutions/...
