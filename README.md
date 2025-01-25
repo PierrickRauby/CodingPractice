@@ -62,6 +62,8 @@ Here is the list of problems with solutions available in the solution branch
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 # Todos:
+ 
+On top of adding solutions and tests to the repo
 
 - [x] Change create_problem.sh to be create_tests.sh
 - [x] Create single command to build and run the tests
@@ -69,5 +71,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 - [x] Add solutions and dev branches to pipelines
 - [x] Add  a script that tell you what problems are still to do
 - [x] clarify the use of each branch /dev/solutions/...
-- [i] Working on adding more problems solutions in the solution branch
 - [ ] Investigate HomeBrew package usefulness  (in progress)
