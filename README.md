@@ -51,6 +51,12 @@ cd CodingPractice
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for bug fixes, improvements, or new problem solutions.
 
+## Problems and Solutions Index
+
+Here is the list of problems with solutions available in the solution branch
+- Problem 1 - Two Sum
+- Problem 1071 - Greatest Common Divisor of Strings
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
@@ -63,6 +69,5 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 - [x] Add solutions and dev branches to pipelines
 - [x] Add  a script that tell you what problems are still to do
 - [x] clarify the use of each branch /dev/solutions/...
-- [ ] Working on adding more problems solutions in the solution branch
-- [ ] Configure Test to run automatically on all branches
+- [i] Working on adding more problems solutions in the solution branch
 - [ ] Investigate HomeBrew package usefulness  (in progress)
