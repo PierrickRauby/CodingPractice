@@ -54,8 +54,9 @@ Contributions are welcome! Feel free to open an issue or submit a pull request f
 ## Problems and Solutions Index
 
 Here is the list of problems with solutions available in the solution branch
-- Problem 1 - Two Sum
-- Problem 1071 - Greatest Common Divisor of Strings
+- Problem 1: Two Sum
+- Problem 1071: Greatest Common Divisor of Strings
+- Problem 1108: Defanging an IP Address
 
 ## License
 
