@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../main.h"
+#include "solution.hpp"
 #include <string>
 // Your test cases here
 TEST(lengthOfLastWord, BasicTest) {

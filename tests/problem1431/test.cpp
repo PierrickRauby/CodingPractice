@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../main.h"
+#include "solution.hpp"
 #include <vector>
 
 TEST(kidsWithCandies, BasicTest) {
