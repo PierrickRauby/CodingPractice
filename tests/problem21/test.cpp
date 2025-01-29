@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../main.h"
+#include "solution.hpp"
 
 void insertAtEnd(ListNode*& head, int value) {
     ListNode* newNode = new ListNode(value);
