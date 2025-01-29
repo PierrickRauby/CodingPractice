@@ -73,4 +73,5 @@ On top of adding solutions and tests to the repo
 - [x] Add solutions and dev branches to pipelines
 - [x] Add  a script that tell you what problems are still to do
 - [x] clarify the use of each branch /dev/solutions/...
-- [ ] Investigate HomeBrew package usefulness  (in progress)
+- [x] Investigate HomeBrew package usefulness -> yes, will do one!
+- [ ] Requirement, Fonctionnal Design, Architecture for HB package `cptest`
