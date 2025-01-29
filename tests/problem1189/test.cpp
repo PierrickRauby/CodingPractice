@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../main.h"
+#include "solution.hpp"
 
 TEST(maxNumberOfBalloons, BasicTest) {
     // Inputs
