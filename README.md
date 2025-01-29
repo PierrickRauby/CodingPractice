@@ -63,9 +63,9 @@ Here is the list of problems with solutions available in the solution branch
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
-# Todos:
+## 🔥 Next Steps
  
-On top of adding solutions and tests to the repo
+On top of adding solutions and tests to the repo (bold are bigger tasks)
 
 - [x] Change create_problem.sh to be create_tests.sh
 - [x] Create single command to build and run the tests
@@ -74,4 +74,9 @@ On top of adding solutions and tests to the repo
 - [x] Add  a script that tell you what problems are still to do
 - [x] clarify the use of each branch /dev/solutions/...
 - [x] Investigate HomeBrew package usefulness -> yes, will do one!
-- [ ] Requirement, Fonctionnal Design, Architecture for HB package `cptest`
+- [x] Requirement, Fonctionnal Design, Architecture for HB package `cptest`
+
+- [ ] **Finalize CLI commands**.
+- [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
+- [ ] **Ensure easy installation via Homebrew**.
+- [ ] **Expand to Python and Rust after the C++ MVP is stable**.
