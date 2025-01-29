@@ -57,6 +57,7 @@ Here is the list of problems with solutions available in the solution branch
 - Problem 1: Two Sum
 - Problem 1071: Greatest Common Divisor of Strings
 - Problem 1108: Defanging an IP Address
+- Problem 1189: Maximum Number of Balloons
 
 ## License
 
