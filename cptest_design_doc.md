@@ -39,82 +39,203 @@ Future extensions will include support for **Python** and **Rust** implementatio
 
 ### 2.1 CLI Usage
 
-#### ✅ **Running a Test**
+The `cptest` tool provides command-line functionality to test C++ implementations against predefined test cases, retrieve reference solutions, and manage test cases. Below are the available commands:
+
+#### **2.1.1 cptest run `<file.cpp>`**
+
+**Purpose:** Runs a single C++ implementation against predefined test cases.  
+
+##### **Input:**
+
+- A C++ source file (`.cpp`) containing a solution to a problem.
+
+##### **Expected Output:**
+
+- ✅ **PASSED**: The output matches expected results.
+- ❌ **FAILED**: The output does not match.
+- ⚠️ **COMPILATION ERROR**: Compilation failed; error messages are shown.
+- ⚠️ **MISSING TEST CASES**: No test cases exist for the given problem.
+
+##### **Error Handling:**
+
+- **File not found** → `"Error: File '<file.cpp>' does not exist."`
+- **Compilation error** → `"Error: Compilation failed. See output for details."`
+- **No matching test cases** → `"Warning: No test cases found for '<file.cpp>'."`
+
+##### **Example Usage:**
 
 ```sh
-cptest run problem1/my_implementation.cpp
+cptest run problems/problem1/my_implementation.cpp
 ```
 
-- Compiles the practice implementation.
-- Runs it against predefined test cases for problem1.
-- Compares outputs.
+---
 
-#### ✅ **Checking All Tests**
+#### **2.1.2 cptest run-all `<rootFolder>`**
+
+**Purpose:** Runs all available test cases for all problems within a directory.
+
+##### **Input:**
+
+- A directory containing multiple C++ problem implementations.
+
+##### **Expected Output:**
+
+- A summary of results for all implementations in the directory.
+- Compilation/runtime failures are displayed.
+
+##### **Error Handling:**
+
+- **Directory not found** → `"Error: Directory '<rootFolder>' does not exist."`
+- **No C++ files found** → `"Error: No implementations found in '<rootFolder>'."`
+- **Test case directory missing** → `"Warning: Some problems are missing test cases."`
+
+##### **Example Usage:**
 
 ```sh
-cptest run-all rootFolder
+cptest run-all problems/
 ```
 
-- Runs all available test cases for all problems located in `rootFolder`.
-- The folder must follow the structure:
-  ```
-  rootFolder/
-  ├── problemX/
-  │   ├── implementation.cpp
-  ├── problemY/
-  │   ├── implementation.cpp
-  ```
+##### **Example Output:**
 
-#### ✅ **View a Reference Implementation**
+```
+[problem1/my_implementation.cpp] ✅ PASSED
+[problem2/my_implementation.cpp] ❌ FAILED (Output mismatch)
+[problem3/my_implementation.cpp] ⚠️ COMPILATION ERROR
+```
+
+---
+
+#### **2.1.3 cptest get-solution `<problem>`**
+
+**Purpose:** Retrieves a reference implementation for the given problem.
+
+##### **Input:**
+
+- The problem identifier (e.g., `problem1`).
+
+##### **Expected Output:**
+
+- The reference solution, if available.
+- ⚠️ **MISSING**: If no reference implementation exists.
+
+##### **Error Handling:**
+
+- **Reference implementation not found** → `"Warning: No reference implementation available for '<problem>'."`
+- **Invalid problem name** → `"Error: Problem '<problem>' does not exist."`
+
+##### **Example Usage:**
 
 ```sh
 cptest get-solution problem1
 ```
 
-- Fetches the reference implementation (if available) from the repository.
+##### **Example Output:**
 
-#### ✅ **Generating a New Test Case**
+```cpp
+// Reference Implementation for problem1
+#include <iostream>
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+}
+```
+
+---
+
+#### **2.1.4 cptest create-test `<problem>`**
+
+**Purpose:** Generates a new test case for the specified problem.
+
+##### **Input:**
+
+- The problem identifier.
+
+##### **Expected Output:**
+
+- A new test file is created inside the `tests/` directory.
+- A warning is displayed if the test already exists.
+
+##### **Error Handling:**
+
+- **Problem not found** → `"Error: Problem '<problem>' does not exist in the repository."`
+- **Test file already exists** → `"Warning: Test file for '<problem>' already exists. Skipping creation."`
+
+##### **Example Usage:**
 
 ```sh
 cptest create-test problem1
 ```
 
-- Generates a new test case using a predefined template.
+##### **Example Output:**
 
-#### ✅ **Checking for Missing Reference Implementations**
+```
+✅ Test template created at tests/problem1/test1.txt
+```
+
+---
+
+#### **2.1.5 cptest check-missing**
+
+**Purpose:** Checks for missing reference implementations in the repository.
+
+##### **Input:**
+
+- No input required.
+
+##### **Expected Output:**
+
+- A list of problems that have test cases but lack a reference implementation.
+- `"All problems have reference implementations."` if nothing is missing.
+
+##### **Error Handling:**
+
+- **No missing solutions** → `"All problems have reference implementations."`
+- **Repository structure issue** → `"Error: Unable to check missing implementations. Ensure 'tests/' and 'solutions/' directories exist."`
+
+##### **Example Usage:**
 
 ```sh
 cptest check-missing
 ```
 
-- Scans the `tests/` directory to find all available test cases.
-- Checks the `solutions/` directory to see if a corresponding reference implementation exists.
-- Lists all problems that have test cases but are missing a reference implementation.
-- Example output:
-  ```
-  ⚠️ Missing reference implementations for the following problems:
-  - problem2
-  - problem4
-  ```
+##### **Example Output:**
 
-### 2.2 Expected Input/Output
+```
+⚠️ Missing reference implementations for the following problems:
+- problem2
+- problem4
+```
 
-**Input:**
+---
 
-- C++ implementation file (`.cpp`)
-- Predefined test cases (stored in the `tests/` directory)
+### **2.2 Future CLI Enhancements: Optional Flags & Parameters**
 
-**Output:**
+To extend `cptest` functionality in the future, the following optional flags and parameters are proposed:
 
-- `✅ PASSED`: if the output matches expected results.
-- `❌ FAILED`: if the output does not match.
-- `⚠️ MISSING`: if no reference implementation exists for a given problem.
+#### **2.2.1 Global Flags (Applicable to Multiple Commands)**
 
-### 2.3 Error Handling
+| Flag | Description | Applicable Commands |
+|------|------------|---------------------|
+| `--verbose` | Displays detailed logs (compilation steps, test execution details, etc.) | `run`, `run-all`, `create-test` |
+| `--quiet` | Suppresses non-error messages for cleaner output | `run`, `run-all`, `check-missing` |
+| `--json` | Outputs results in JSON format (useful for CI/CD integration) | `run`, `run-all` |
 
-- **Compilation Errors** → Display error messages and suggest fixes.
-- **Runtime Errors** → Capture segmentation faults, timeouts, etc.
-- **Missing Tests** → Provide a warning and suggest generating test cases.
+#### **2.2.2 Command-Specific Flags**
+
+| Command | Flag | Description |
+|---------|------|-------------|
+| `cptest run` | `--timeout=<seconds>` | Specifies a maximum execution time per test case (default: no limit) |
+| `cptest run` | `--ignore-failures` | Continues running tests even if some fail |
+| `cptest run-all` | `--parallel=<N>` | Runs tests in parallel using N threads (default: 1) |
+| `cptest create-test` | `--overwrite` | Overwrites an existing test case instead of skipping |
+| `cptest check-missing` | `--detailed` | Shows additional metadata about missing implementations |
+
+#### **2.2.3 Possible Future Additions**
+
+- `--diff` (for `run`): Displays a side-by-side diff when a test fails.
+- `--update-tests` (for `run-all`): Automatically updates test outputs if they mismatch.
+- `--list` (for `get-solution`): Lists all available solutions instead of fetching just one.
+
+These flags ensure `cptest` remains extensible for future improvements.
 
 ---
 
