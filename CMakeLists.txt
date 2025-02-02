@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(CodingPractice)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 enable_testing()
 
@@ -47,5 +48,14 @@ add_custom_target(run_tests COMMAND ctest --test-dir ${CMAKE_BINARY_DIR} --outpu
 add_custom_target(build_test
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
     COMMAND ${CMAKE_CTEST_COMMAND} --test-dir ${CMAKE_BINARY_DIR} --output-on-failure
+)
+
+# Add runner executable
+add_executable(runner src/runner.cpp)
+
+# Custom target to ensure runner is built and used to run tests
+add_custom_target(run_tests_with_runner
+    COMMAND runner
+    DEPENDS runner
 )
 
