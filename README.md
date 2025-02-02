@@ -114,7 +114,8 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [x] clarify the use of each branch /dev/solutions/...
 - [x] Investigate HomeBrew package usefulness -> yes, will do one!
 - [x] Requirement, Fonctionnal Design, Architecture for HB package `cptest`
-- [ ] Create a mechanism to  exclude tests and solutions from the pipeline
+- [x] Create a mechanism to  exclude tests and solutions from the pipeline
+- [ ] Updated Readme.md to reflect which test and problems are completed
 
 - [ ] **Finalize CLI commands**.
 - [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
