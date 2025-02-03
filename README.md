@@ -117,8 +117,9 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [x] Create a mechanism to  exclude tests and solutions from the pipeline
 - [ ] Updated Readme.md to reflect which test and problems are completed
 
-- [ ] **Finalize CLI commands**.
 - [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
+- [ ] Verify that runner.cpp satisfies the design doc
+- [ ] **Finalize CLI commands**.
 - [ ] **Ensure easy installation via Homebrew**.
 - [ ] **Expand to Python and Rust after the C++ MVP is stable**.
 - [ ] **Make it so the user can easily setup github runner for them**

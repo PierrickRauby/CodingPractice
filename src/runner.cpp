@@ -11,10 +11,19 @@
 
 namespace fs = std::filesystem;
 
-// Function to check if a test exists by checking for its directory
+// Function to check if a test exists by checking for its exact directory name
 bool test_exists(const std::string& test_name, const std::string& build_dir) {
-    fs::path test_path = fs::path(build_dir) / "tests" / test_name;
-    return fs::exists(test_path) && fs::is_directory(test_path);
+    fs::path tests_dir = fs::path(build_dir) / "tests";
+    if (!fs::exists(tests_dir) || !fs::is_directory(tests_dir)) {
+        return false;
+    }
+    
+    for (const auto& entry : fs::directory_iterator(tests_dir)) {
+        if (entry.is_directory() && entry.path().filename() == test_name) {
+            return true;
+        }
+    }
+    return false;
 }
 
 int main(int argc, char* argv[]) {
@@ -44,7 +53,7 @@ int main(int argc, char* argv[]) {
             std::cerr << RED << "❌ Error: Test '" << test_name << "' does not exist!" << RESET << std::endl;
             return 1;
         }
-        command += " -R " + test_name;
+        command += " -R ^" + test_name + "$"; // Ensures exact match
     }
 
     // Capture output in a log file
@@ -61,3 +70,4 @@ int main(int argc, char* argv[]) {
 
     return result;
 }
+
