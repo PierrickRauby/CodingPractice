@@ -239,24 +239,43 @@ These flags ensure `cptest` remains extensible for future improvements.
 
 ---
 
+
 ## 3. Architecture
 
-### 3.1 High-Level Components
+### 3.1 Separation of Test Building and Running
+
+To maintain modularity and flexibility, `cptest` will use two separate components:
+
+#### **3.1.1 Test Builder (`test_builder`)**
+- Responsible for **compiling** tests before execution.
+- Uses `CMake` to ensure tests are built before running.
+- Ensures tests are up to date before execution.
+
+#### **3.1.2 Test Runner (`test_runner`)**
+- Ensures tests exist.
+- Calls `test_builder` before running the tests.
+- Executes `ctest` with appropriate filtering options.
+
+`cptest` will wrap both `test_runner` and `test_builder`, using them as APIs.
+
+### 3.2 High-Level Components
 
 1. **CLI Interface (`cptest`)**
    - Parses commands and arguments.
    - Dispatches tasks based on user input.
-2. **Test Runner (`runner.cpp`)**
-   - Compiles user code.
-   - Executes against test cases.
-   - Compares results.
-3. **Reference Implementation Provider (`solution_manager.cpp`)**
+2. **Test Builder (`test_builder`)**
+   - Compiles test binaries.
+   - Ensures dependencies are correctly built.
+3. **Test Runner (`test_runner`)**
+   - Runs tests using `ctest`.
+   - Filters tests using `-R` for targeted execution.
+4. **Reference Implementation Provider (`solution_manager.cpp`)**
    - Retrieves reference implementations.
    - Lists available problems and missing reference implementations.
-4. **Test Case Generator (`test_generator.cpp`)**
+5. **Test Case Generator (`test_generator.cpp`)**
    - Creates new test cases when needed.
 
-### 3.2 Repository Structure
+### 3.3 Repository Structure
 
 ```
 .
@@ -278,7 +297,7 @@ These flags ensure `cptest` remains extensible for future improvements.
     ├── test_generator.cpp
 ```
 
-### 3.3 Build & Installation
+### 3.4 Build & Installation
 
 - Uses **CMake** for compilation.
 - Installs as a Homebrew package (`brew install cptest`).
