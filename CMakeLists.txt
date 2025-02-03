@@ -50,12 +50,6 @@ add_custom_target(build_test
     COMMAND ${CMAKE_CTEST_COMMAND} --test-dir ${CMAKE_BINARY_DIR} --output-on-failure
 )
 
-# Add runner executable
-add_executable(runner src/runner.cpp)
-
-# Custom target to ensure runner is built and used to run tests
-add_custom_target(run_tests_with_runner
-    COMMAND runner
-    DEPENDS runner
-)
-
+# Add Core components as executables
+add_executable(test-runner src/test_runner.cpp)
+add_executable(test-builder src/test_builder.cpp)
