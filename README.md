@@ -118,7 +118,13 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] Updated Readme.md to reflect which test and problems are completed
 
 - [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
-- [ ] Verify that runner.cpp satisfies the design doc
+- [x] Verify that runner.cpp satisfies the design doc 
+			-> yes but needs to be more than a script
+- [ ] Architecture and Implementation of test_runner.cpp
+- [ ] Architecture and Implementation of cptest.cpp i.e. main excutable
+- [ ] test_builder unit tests
+- [ ] test_runner unit tests
+- [ ] cptest unit tests
 - [ ] **Finalize CLI commands**.
 - [ ] **Ensure easy installation via Homebrew**.
 - [ ] **Expand to Python and Rust after the C++ MVP is stable**.
