@@ -120,7 +120,8 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
 - [x] Verify that runner.cpp satisfies the design doc 
 			-> yes but needs to be more than a script
-- [ ] Architecture and Implementation of test_runner.cpp
+- [x] Architecture and Implementation of test_runner.cpp
+- [ ] Architecture and Implementation of test_builder.cpp
 - [ ] Architecture and Implementation of cptest.cpp i.e. main excutable
 - [ ] test_builder unit tests
 - [ ] test_runner unit tests
