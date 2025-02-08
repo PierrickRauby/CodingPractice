@@ -129,4 +129,5 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] **Finalize CLI commands**.
 - [ ] **Ensure easy installation via Homebrew**.
 - [ ] **Expand to Python and Rust after the C++ MVP is stable**.
+- [ ] ** Eventually also in C**
 - [ ] **Make it so the user can easily setup github runner for them**
