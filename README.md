@@ -98,9 +98,10 @@ Here is the list of problems with solutions available in the solution branch
 - [ ] Problem 933:
 - [x] Problem 977: Square of Sorted Array (easy)
 
-## License
+<details><summary><h2> License</h2></summary>
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
+</details>
 
 ## 🔥 Next Steps
  
