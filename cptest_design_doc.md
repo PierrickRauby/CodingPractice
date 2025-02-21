@@ -277,6 +277,8 @@ To maintain modularity and flexibility, `cptest` will use two separate component
 
 ### 3.3 Repository Structure
 
+<!-- TODO: test repository structure to update   -->
+
 ```
 .
 ├── CMakeLists.txt    # Build system config
