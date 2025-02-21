@@ -23,8 +23,8 @@ Future extensions will include support for **Python** and **Rust** implementatio
 
 #### **Should-Have (Planned for Expansion)**
 
-- Allow users to request **reference implementations** (if available for that problem).
-- Allow users to request the addition of a missing reference implementation.
+- Allow users to request **reference implementations** (if available for that problem) -> maybe by creating issue in the repo?
+- Allow users to request the addition of a missing reference implementation -> (same as above)
 - Add support for **Python** and **Rust**.
 
 #### **Nice-to-Have (Future Improvements)**

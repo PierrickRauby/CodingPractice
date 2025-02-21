@@ -119,8 +119,7 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] Updated Readme.md to reflect which test and problems are completed
 
 - [ ] **Implement core components (`runner.cpp`, `solution_manager.cpp`)**.
-- [x] Verify that runner.cpp satisfies the design doc 
-			-> yes but needs to be more than a script
+- [x] Verify that runner.cpp satisfies the design doc -> yes but needs to be more than a script
 - [x] Architecture and Implementation of test_runner.cpp
 - [ ] Architecture and Implementation of test_builder.cpp
 - [ ] Architecture and Implementation of cptest.cpp i.e. main excutable
@@ -130,5 +129,12 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] **Finalize CLI commands**.
 - [ ] **Ensure easy installation via Homebrew**.
 - [ ] **Expand to Python and Rust after the C++ MVP is stable**.
-- [ ] ** Eventually also in C**
+- [ ] **Eventually also in C**
 - [ ] **Make it so the user can easily setup github runner for them**
+
+## Clear actionnable next steps
+
+- [ ] Need to double check that the `test_builder` is running correctly, by adding some automated test.
+- [ ] Once those tests are running locally make sure they also run on the pipeline.
+- [ ] Also do test for teh runner to ensure that functionnality is preserved during refactoring.
+- [ ] Only then work on the changing the structure of the runner to make it OOO.
