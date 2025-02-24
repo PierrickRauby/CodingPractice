@@ -6,11 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 enable_testing()
 
-# Define source directories
+# Define source and include directories
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
-
-# Define test directories
 set(TESTS_CORE_DIR ${CMAKE_SOURCE_DIR}/tests/core)
 set(TESTS_INTEGRATION_DIR ${CMAKE_SOURCE_DIR}/tests/integration)
 set(TESTS_PROBLEMS_DIR ${CMAKE_SOURCE_DIR}/tests/problems)
@@ -19,24 +17,19 @@ set(EXCLUSION_FILE ${CMAKE_SOURCE_DIR}/excluded_tests.txt)
 
 # Include directories
 include_directories(${INCLUDE_DIR})
-include_directories(src)
 
 # Build test_builder as a library
 add_library(test_builder ${SRC_DIR}/test_builder.cpp)
 target_include_directories(test_builder PUBLIC ${INCLUDE_DIR})
 
-# Add the main application
-add_executable(test_builder_exe ${SRC_DIR}/test_builder.cpp)
-target_link_libraries(test_builder_exe test_builder)
+# Define the main executable for TestBuilder CLI
+add_executable(test_builder_main ${SRC_DIR}/test_builder_main.cpp)
+target_link_libraries(test_builder_main test_builder)
 
-# Add the test executable
-add_executable(test_test_builder tests/test_test_builder.cpp)
-target_link_libraries(test_test_builder test_builder)
-
-# Optional: Build a CLI executable for test_builder (if test_builder_cli.cpp exists)
+# Optional: Build a CLI executable for test_builder if test_builder_cli.cpp exists
 if(EXISTS "${SRC_DIR}/test_builder_cli.cpp")
-    add_executable(test-builder-cli ${SRC_DIR}/test_builder_cli.cpp)
-    target_link_libraries(test-builder-cli test_builder)
+    add_executable(test_builder_cli ${SRC_DIR}/test_builder_cli.cpp)
+    target_link_libraries(test_builder_cli test_builder)
 endif()
 
 # Conditionally build test_runner if it exists
@@ -45,8 +38,8 @@ if(EXISTS "${SRC_DIR}/test_runner.cpp")
     target_include_directories(test_runner PUBLIC ${INCLUDE_DIR})
 
     # Build test_runner as an executable
-    add_executable(test-runner ${SRC_DIR}/test_runner.cpp)
-    target_link_libraries(test-runner test_runner)
+    add_executable(test_runner_main ${SRC_DIR}/test_runner_main.cpp)
+    target_link_libraries(test_runner_main test_runner)
 else()
     message(WARNING "test_runner.cpp not found! Skipping test_runner target.")
 endif()
@@ -119,8 +112,7 @@ add_custom_target(build_and_run_tests
 # Ensure test_runner target is included only if implemented
 if(EXISTS "${SRC_DIR}/test_runner.cpp")
     add_custom_target(run_tests_with_runner
-        COMMAND test-runner
-        DEPENDS test-runner
+        COMMAND test_runner_main
+        DEPENDS test_runner_main
     )
 endif()
-
