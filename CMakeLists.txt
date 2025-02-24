@@ -26,18 +26,11 @@ target_include_directories(test_builder PUBLIC ${INCLUDE_DIR})
 add_executable(test_builder_main ${SRC_DIR}/test_builder_main.cpp)
 target_link_libraries(test_builder_main test_builder)
 
-# Optional: Build a CLI executable for test_builder if test_builder_cli.cpp exists
-if(EXISTS "${SRC_DIR}/test_builder_cli.cpp")
-    add_executable(test_builder_cli ${SRC_DIR}/test_builder_cli.cpp)
-    target_link_libraries(test_builder_cli test_builder)
-endif()
-
 # Conditionally build test_runner if it exists
 if(EXISTS "${SRC_DIR}/test_runner.cpp")
     add_library(test_runner ${SRC_DIR}/test_runner.cpp)
     target_include_directories(test_runner PUBLIC ${INCLUDE_DIR})
 
-    # Build test_runner as an executable
     add_executable(test_runner_main ${SRC_DIR}/test_runner_main.cpp)
     target_link_libraries(test_runner_main test_runner)
 else()
@@ -56,19 +49,26 @@ endif()
 set(EXCLUDED_TESTS "")
 if(EXISTS ${EXCLUSION_FILE})
     file(READ ${EXCLUSION_FILE} EXCLUDED_TESTS)
-    string(REPLACE "\n" ";" EXCLUDED_TESTS ${EXCLUDED_TESTS}) # Convert newlines to semicolons (list format)
+    string(REPLACE "\n" ";" EXCLUDED_TESTS ${EXCLUDED_TESTS})
 endif()
 
-### Core Tests (Unit Tests for `test_builder` and `test_runner`)
+### Core Tests (Unit Tests for `test_builder`)
 file(GLOB CORE_TESTS "${TESTS_CORE_DIR}/*.cpp")
 foreach(TEST_FILE ${CORE_TESTS})
     get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
+
+    # Prevent `test_test_builder` from building itself inside test_build_dir
+    if(TEST_NAME STREQUAL "test_test_builder")
+        message(STATUS "Skipping self-build of test_test_builder.")
+        continue()
+    endif()
+
     add_executable(${TEST_NAME} ${TEST_FILE})
     target_link_libraries(${TEST_NAME} test_builder)
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
 endforeach()
 
-### Integration Tests (Testing the full pipeline)
+### Integration Tests
 file(GLOB INTEGRATION_TESTS "${TESTS_INTEGRATION_DIR}/*.cpp")
 foreach(TEST_FILE ${INTEGRATION_TESTS})
     get_filename_component(TEST_NAME ${TEST_FILE} NAME_WE)
@@ -82,14 +82,12 @@ file(GLOB PROBLEM_TEST_DIRS "${TESTS_PROBLEMS_DIR}/*")
 foreach(TEST_DIR ${PROBLEM_TEST_DIRS})
     get_filename_component(PROBLEM_NAME ${TEST_DIR} NAME)
 
-    # Skip test if listed in excluded_tests.txt
     list(FIND EXCLUDED_TESTS ${PROBLEM_NAME} EXCLUDED)
     if(NOT EXCLUDED EQUAL -1)
-        message(WARNING "Skipping test for problem: ${PROBLEM_NAME} (listed in excluded_tests.txt)")
+        message(WARNING "Skipping test for problem: ${PROBLEM_NAME} (excluded).")
         continue()
     endif()
 
-    # Only include the test if a solution exists
     if(EXISTS "${SOLUTIONS_DIR}/${PROBLEM_NAME}/solution.cpp")
         message(STATUS "Adding problem test: ${PROBLEM_NAME}")
         add_subdirectory(${TEST_DIR})
@@ -108,11 +106,3 @@ add_custom_target(build_and_run_tests
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
     COMMAND ${CMAKE_CTEST_COMMAND} --test-dir ${CMAKE_BINARY_DIR} --output-on-failure
 )
-
-# Ensure test_runner target is included only if implemented
-if(EXISTS "${SRC_DIR}/test_runner.cpp")
-    add_custom_target(run_tests_with_runner
-        COMMAND test_runner_main
-        DEPENDS test_runner_main
-    )
-endif()

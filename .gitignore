@@ -47,3 +47,4 @@ Makefile
 # Ignore logs and temp files
 *.log
 *.tmp
+.vscode/settings.json
