@@ -26,10 +26,12 @@ add_library(test_builder ${SRC_DIR}/test_builder.cpp)
 target_include_directories(test_builder PUBLIC ${INCLUDE_DIR})
 
 # Add the main application
-add_executable(test_builder src/test_builder.cpp)
+add_executable(test_builder_exe ${SRC_DIR}/test_builder.cpp)
+target_link_libraries(test_builder_exe test_builder)
 
 # Add the test executable
 add_executable(test_test_builder tests/test_test_builder.cpp)
+target_link_libraries(test_test_builder test_builder)
 
 # Optional: Build a CLI executable for test_builder (if test_builder_cli.cpp exists)
 if(EXISTS "${SRC_DIR}/test_builder_cli.cpp")
