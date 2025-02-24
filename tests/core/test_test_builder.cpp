@@ -36,7 +36,7 @@ void testBuildAll() {
 void testBuildTest() {
     TestBuilder builder;
     std::string buildDir = "test_build_dir";
-    std::string testName = "some_other_test";  // Avoid test_test_builder
+    std::string testName = "test_problem1";  // Avoid test_test_builder
     int numJobs = 4;
 
     // Get the absolute path of the project root
