@@ -134,7 +134,8 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 
 ## Clear actionnable next steps
 
-- [ ] Need to double check that the `test_builder` is running correctly, by adding some automated test.
-- [ ] Once those tests are running locally make sure they also run on the pipeline.
+- [x] Need to double check that the `test_builder` is running correctly, by adding some automated test.
+- [x] Once those tests are running locally make sure they also run on the pipeline.
 - [ ] Also do test for teh runner to ensure that functionnality is preserved during refactoring.
 - [ ] Only then work on the changing the structure of the runner to make it OOO.
+- [ ] Change the runner and the builder so that the number of jobs is an optionnal argument

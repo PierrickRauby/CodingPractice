@@ -17,6 +17,18 @@ include_directories(${INCLUDE_DIR})
 add_library(test_builder ${SRC_DIR}/test_builder.cpp)
 target_include_directories(test_builder PUBLIC ${INCLUDE_DIR})
 
+# Build test_runner as a library
+add_library(test_runner ${SRC_DIR}/test_runner.cpp)
+target_include_directories(test_runner PUBLIC ${INCLUDE_DIR})
+
+# Define the main executable for TestBuilder CLI
+add_executable(test_builder_main ${SRC_DIR}/test_builder_main.cpp)
+target_link_libraries(test_builder_main test_builder)
+
+# Define the main executable for TestRunner CLI
+add_executable(test_runner_main ${SRC_DIR}/test_runner_main.cpp)
+target_link_libraries(test_runner_main test_runner)
+
 # Include separate test configurations
 include(${CMAKE_SOURCE_DIR}/cmake/CoreTests.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/ProblemTests.cmake)
