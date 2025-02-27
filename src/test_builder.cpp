@@ -3,6 +3,7 @@
 #include <cstdlib>
 
 bool TestBuilder::buildAll(const std::string& buildDir, int numJobs){
+  // BUG: issues with manually building when the directory for the tests does not exist or when it has not been built before
   std::string buildCommand= "cmake --build " + buildDir;
   if(numJobs >1){
     buildCommand+= " --parallel "+std::to_string(numJobs);

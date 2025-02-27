@@ -11,22 +11,17 @@
 namespace fs = std::filesystem;
 
 bool TestRunner::testExists(const std::string& testName, const std::string& buildDir) {
-    // Check in the main build directory
-    fs::path testExecutable1 = fs::path(buildDir) / testName;
-    // Check in test_build_dir (where CMake places built tests)
-    fs::path testExecutable2 = fs::path(buildDir) / "test_build_dir" / testName;
-    // Check inside tests/ (based on directory structure)
-    fs::path testExecutable3 = fs::path(buildDir) / "test_build_dir/tests" / testName;
+    // Expected locations for the test executables
+    fs::path testExecutable1 = fs::path(buildDir) / "tests/problems" / testName;
+    fs::path testExecutable2 = fs::path(buildDir) / "test_build_dir/tests/problems" / testName;
 
     if ((fs::exists(testExecutable1) && fs::is_regular_file(testExecutable1)) ||
-        (fs::exists(testExecutable2) && fs::is_regular_file(testExecutable2)) ||
-        (fs::exists(testExecutable3) && fs::is_regular_file(testExecutable3))) {
+        (fs::exists(testExecutable2) && fs::is_regular_file(testExecutable2))) {
         return true;  // Test executable exists
     }
 
-    std::cerr << "❌ Test executable not found: " << testExecutable1 
-              << ", " << testExecutable2 
-              << ", or " << testExecutable3 << std::endl;
+    std::cerr << "❌ Test executable not found in: " 
+              << testExecutable1 << " or " << testExecutable2 << std::endl;
     return false;
 }
 
