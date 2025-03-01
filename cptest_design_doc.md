@@ -74,22 +74,22 @@ cptest run problems/problem1/my_implementation.cpp
 
 **Purpose:** Runs all available test cases for all problems within a directory.
 
-##### **Input:**
+**Input:**
 
 - A directory containing multiple C++ problem implementations.
 
-##### **Expected Output:**
+**Expected Output:**
 
 - A summary of results for all implementations in the directory.
 - Compilation/runtime failures are displayed.
 
-##### **Error Handling:**
+ **Error Handling:**
 
 - **Directory not found** → `"Error: Directory '<rootFolder>' does not exist."`
 - **No C++ files found** → `"Error: No implementations found in '<rootFolder>'."`
 - **Test case directory missing** → `"Warning: Some problems are missing test cases."`
 
-##### **Example Usage:**
+**Example Usage:**
 
 ```sh
 cptest run-all problems/
@@ -97,7 +97,7 @@ cptest run-all problems/
 
 ##### **Example Output:**
 
-```
+```bash
 [problem1/my_implementation.cpp] ✅ PASSED
 [problem2/my_implementation.cpp] ❌ FAILED (Output mismatch)
 [problem3/my_implementation.cpp] ⚠️ COMPILATION ERROR
@@ -109,27 +109,27 @@ cptest run-all problems/
 
 **Purpose:** Retrieves a reference implementation for the given problem.
 
-##### **Input:**
+**Input:**
 
 - The problem identifier (e.g., `problem1`).
 
-##### **Expected Output:**
+ **Expected Output:**
 
 - The reference solution, if available.
 - ⚠️ **MISSING**: If no reference implementation exists.
 
-##### **Error Handling:**
+**Error Handling:**
 
 - **Reference implementation not found** → `"Warning: No reference implementation available for '<problem>'."`
 - **Invalid problem name** → `"Error: Problem '<problem>' does not exist."`
 
-##### **Example Usage:**
+ **Example Usage:**
 
 ```sh
 cptest get-solution problem1
 ```
 
-##### **Example Output:**
+ **Example Output:**
 
 ```cpp
 // Reference Implementation for problem1
@@ -145,29 +145,29 @@ int main() {
 
 **Purpose:** Generates a new test case for the specified problem.
 
-##### **Input:**
+ **Input:**
 
 - The problem identifier.
 
-##### **Expected Output:**
+ **Expected Output:**
 
 - A new test file is created inside the `tests/` directory.
 - A warning is displayed if the test already exists.
 
-##### **Error Handling:**
+ **Error Handling:**
 
 - **Problem not found** → `"Error: Problem '<problem>' does not exist in the repository."`
 - **Test file already exists** → `"Warning: Test file for '<problem>' already exists. Skipping creation."`
 
-##### **Example Usage:**
+**Example Usage:**
 
 ```sh
 cptest create-test problem1
 ```
 
-##### **Example Output:**
+ **Example Output:**
 
-```
+```bash
 ✅ Test template created at tests/problem1/test1.txt
 ```
 
@@ -177,29 +177,29 @@ cptest create-test problem1
 
 **Purpose:** Checks for missing reference implementations in the repository.
 
-##### **Input:**
+ **Input:**
 
 - No input required.
 
-##### **Expected Output:**
+ **Expected Output:**
 
 - A list of problems that have test cases but lack a reference implementation.
 - `"All problems have reference implementations."` if nothing is missing.
 
-##### **Error Handling:**
+ **Error Handling:**
 
 - **No missing solutions** → `"All problems have reference implementations."`
 - **Repository structure issue** → `"Error: Unable to check missing implementations. Ensure 'tests/' and 'solutions/' directories exist."`
 
-##### **Example Usage:**
+ **Example Usage:**
 
 ```sh
 cptest check-missing
 ```
 
-##### **Example Output:**
+ **Example Output:**
 
-```
+```bash
 ⚠️ Missing reference implementations for the following problems:
 - problem2
 - problem4
@@ -239,19 +239,20 @@ These flags ensure `cptest` remains extensible for future improvements.
 
 ---
 
-
 ## 3. Architecture
 
 ### 3.1 Separation of Test Building and Running
 
 To maintain modularity and flexibility, `cptest` will use two separate components:
 
-#### **3.1.1 Test Builder (`test_builder`)**
+ **3.1.1 Test Builder (`test_builder`)**
+
 - Responsible for **compiling** tests before execution.
 - Uses `CMake` to ensure tests are built before running.
 - Ensures tests are up to date before execution.
 
-#### **3.1.2 Test Runner (`test_runner`)**
+ **3.1.2 Test Runner (`test_runner`)**
+
 - Ensures tests exist.
 - Calls `test_builder` before running the tests.
 - Executes `ctest` with appropriate filtering options.
@@ -279,7 +280,7 @@ To maintain modularity and flexibility, `cptest` will use two separate component
 
 <!-- TODO: test repository structure to update   -->
 
-```
+```tree
 .
 ├── CMakeLists.txt    # Build system config
 ├── README.md         # Documentation

@@ -1,9 +1,8 @@
+#include "test_runner.hpp"
 #include <iostream>
 #include <cstdlib>
-#include <string>
 #include <filesystem>
 #include <vector>
-#include <fstream>
 
 #define GREEN "\033[32m"
 #define RED "\033[31m"
@@ -11,63 +10,43 @@
 
 namespace fs = std::filesystem;
 
-// Function to check if a test exists by checking for its exact directory name
-bool test_exists(const std::string& test_name, const std::string& build_dir) {
-    fs::path tests_dir = fs::path(build_dir) / "tests";
-    if (!fs::exists(tests_dir) || !fs::is_directory(tests_dir)) {
-        return false;
+bool TestRunner::testExists(const std::string& testName, const std::string& buildDir) {
+    // Expected locations for the test executables
+    fs::path testExecutable1 = fs::path(buildDir) / "tests/problems" / testName;
+    fs::path testExecutable2 = fs::path(buildDir) / "test_build_dir/tests/problems" / testName;
+
+    if ((fs::exists(testExecutable1) && fs::is_regular_file(testExecutable1)) ||
+        (fs::exists(testExecutable2) && fs::is_regular_file(testExecutable2))) {
+        return true;  // Test executable exists
     }
-    
-    for (const auto& entry : fs::directory_iterator(tests_dir)) {
-        if (entry.is_directory() && entry.path().filename() == test_name) {
-            return true;
-        }
-    }
+
+    std::cerr << "❌ Test executable not found in: " 
+              << testExecutable1 << " or " << testExecutable2 << std::endl;
     return false;
 }
 
-int main(int argc, char* argv[]) {
-    std::string build_dir = fs::current_path().string();
-    std::string command = "ctest --test-dir " + build_dir + " --output-on-failure";
-    std::string test_name;
-    bool is_test_specified = false;
-
-    // Handle additional command-line arguments
-    for (int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
-        if (arg == "--rerun-failed") {
-            command += " --rerun-failed";
-        } else if (arg == "-j" && i + 1 < argc) {
-            command += " -j" + std::string(argv[i + 1]);
-            ++i;
-        } else if (arg == "-R" && i + 1 < argc) {
-            test_name = argv[i + 1];
-            is_test_specified = true;
-            ++i;
-        }
+bool TestRunner::runTest(const std::string& testName, const std::string& buildDir) {
+    if (!testExists(testName, buildDir)) {
+        std::cerr << RED << "❌ Error: Test '" << testName << "' does not exist!" << RESET << std::endl;
+        return false;
     }
 
-    // If a specific test was requested, check if it exists
-    if (is_test_specified) {
-        if (!test_exists(test_name, build_dir)) {
-            std::cerr << RED << "❌ Error: Test '" << test_name << "' does not exist!" << RESET << std::endl;
-            return 1;
-        }
-        command += " -R ^" + test_name + "$"; // Ensures exact match
-    }
+    std::string command = "ctest --test-dir " + buildDir + " -R ^" + testName + "$ --output-on-failure | tee test_results.log";
+    std::cout << "Running test: " << command << std::endl;
 
-    // Capture output in a log file
-    command += " | tee test_results.log";
+    return std::system(command.c_str()) == 0;
+}
 
-    std::cout << "Running tests using: " << command << std::endl;
+bool TestRunner::runAllTests(const std::string& buildDir) {
+    std::string command = "ctest --test-dir " + buildDir + " --output-on-failure | tee test_results.log";
+    std::cout << "Running all tests: " << command << std::endl;
+
     int result = std::system(command.c_str());
-
     if (result == 0) {
         std::cout << GREEN << "✅ All tests passed!" << RESET << std::endl;
     } else {
         std::cout << RED << "❌ Some tests failed." << RESET << std::endl;
     }
 
-    return result;
+    return result == 0;
 }
-
