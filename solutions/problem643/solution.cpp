@@ -3,7 +3,7 @@
 #include <vector>
 double Solution::findMaxAverage(std::vector<int>& nums, int k){
     int startIndex{0};
-    double maxSum=0.0
+    double maxSum=0.0;
     double currentSum=0.0;
     // get the sum for the first array
     for(int i=startIndex;i<startIndex+k;i++){
