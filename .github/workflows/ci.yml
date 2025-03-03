@@ -7,12 +7,14 @@ on:
       - structureDev
       - solutions
       - dev
+      - InvestigateTestFailures
   pull_request:
     branches:
       - main
       - structureDev
       - solutions
       - dev
+      - InvestigateTestFailures
 
 jobs:
   build:
