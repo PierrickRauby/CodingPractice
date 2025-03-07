@@ -316,6 +316,17 @@ check_missing() {
     fi
 }
 
+clean() {
+    if [ -d "build" ]; then
+        echo -e "${YELLOW}Removing existing build directory...${NC}"
+        rm -rf build
+    else
+        echo -e "${BLUE}No existing build directory found.${NC}"
+    fi
+    
+    echo -e "${GREEN}✅ Project cleaned successfully!${NC}"
+}
+
 # Clean build directory and start fresh
 clean_build() {
     if [ -d "build" ]; then
@@ -378,6 +389,9 @@ main() {
             check_missing
             ;;
         clean)
+            clean
+            ;;
+        clean-build)
             clean_build
             ;;
         help)
