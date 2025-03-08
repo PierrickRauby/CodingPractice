@@ -134,7 +134,28 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 
 ## Clear actionnable next steps
 
-- [ ] Need to double check that the `test_builder` is running correctly, by adding some automated test.
-- [ ] Once those tests are running locally make sure they also run on the pipeline.
-- [ ] Also do test for teh runner to ensure that functionnality is preserved during refactoring.
-- [ ] Only then work on the changing the structure of the runner to make it OOO.
+### Phase 1: Initial Homebrew Package
+
+- [ ] Add version command to bash script
+- [ ] Create GitHub release tag (v0.1.0)
+- [ ] Create Homebrew formula
+- [ ] Set up Homebrew tap repository
+- [ ] Test installation locally
+
+### Phase 2: C++ Transition
+
+- [ ] Create C++ CLI entry point
+- [ ] Implement core commands in C++
+  - [ ] Help/version commands
+  - [ ] Run test command
+  - [ ] Run-all command
+  - [ ] Create-test command
+- [ ] Update Homebrew formula to support dual implementation
+- [ ] Create incremental releases (v0.2.0, v0.3.0, etc.)
+
+### Phase 3: Polish & Optimization
+
+- [ ] Add man pages
+- [ ] Add shell completions
+- [ ] Complete transition to C++ implementation
+- [ ] Consider submission to Homebrew Core (if widely used)
