@@ -1,31 +1,133 @@
-# CodingPractice
+# Coding Practice Tester (cptest)
+
+A command-line tool for testing C++ practice implementations for competitive programming and LeetCode-style problems locally.
+
+## Features
+
+- Run your practice implementations against predefined test cases
+- Validate output correctness with Google Test
+- Automatically create test templates for new problems
+- Check for missing solutions or tests
+
+## Installation
+
+### Prerequisites
+
+- CMake (3.10 or higher)
+- C++ compiler with C++17 support
+- Google Test library
+
+### Manual Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/CodingPractice.git
+   cd CodingPractice
+   ```
+
+2. Build the project:
+   ```bash
+   cmake -S . -B build
+   cmake --build build
+   ```
+
+3. Make the script executable:
+   ```bash
+   chmod +x cptest.sh
+   ```
+
+### Homebrew Installation (Coming Soon)
+
+The project will soon be available as a Homebrew package:
+
+```bash
+# Not yet available
+brew tap yourusername/cptest
+brew install cptest
+```
+
+## Usage
+
+### Running Tests for a Specific Problem
+
+```bash
+./cptest.sh run problem1
+```
+
+### Running All Tests
+
+```bash
+./cptest.sh run-all
+```
+
+### Creating a New Test
+
+```bash
+./cptest.sh create problem2
+```
+
+### Checking for Missing Solutions or Tests
+
+```bash
+./cptest.sh check-missing
+```
+
+### Cleaning the Build Directory
+
+```bash
+./cptest.sh clean
+```
+
+## Project Structure
+
+- `/solutions/` - Contains your problem solutions
+- `/tests/problems/` - Contains tests for each problem
+- `/templates/` - Templates for new test cases
+- `/src/` - Core implementation files
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+
+## Version History
+
+- 0.1.0: Initial release
+  - Basic testing functionality
+  - Support for running individual and all tests
+  - Test creation from templates
+
+## CodingPractice Draft
 
 A repository to store coding practice problems, solutions, and examples. It includes implementations in C++ and other relevant tools to improve problem-solving skills and explore algorithms and data structures.
 
-## Features
+### Features
 
 - Solutions to various coding problems
 - Unit tests to validate correctness
 - CMake-based build system for easy compilation
 - CI/CD integration for automated testing (if applicable)
 
-## Branches descriptions
+### Branches descriptions
 
 - main: The stable branch containing the latest validated changes to the test and infrastructure, this branch **does not contain** solutions.
 - structureDev: Development branch for modifying and improving the repository's structure, such as organizing files, updating build systems, or refining the CI/CD pipeline.
 - solutions: Contains implemented solutions to coding problems. This branch is updated with verified solutions after testing.
 - dev: A working branch for testing and developing solutions before they are finalized and merged into the solutions branch. Use this branch when working on a new problem.
 
-## How to Use
+### How to Use
 
-### Clone the Repository
+#### Clone the Repository
 
 ```bash
 git clone https://github.com/PierrickRauby/CodingPractice.git
 cd CodingPractice
 ```
 
-### Build and Test Locally
+#### Build and Test Locally
 
 1. Create a build directory and configure the project:
 
@@ -47,11 +149,11 @@ cd CodingPractice
     ctest --output-on-failure
     ```
 
-## Contributing
+### Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request for bug fixes, improvements, or new problem solutions.
 
-## Problems and Solutions Index
+### Problems and Solutions Index
 
 Here is the list of problems with solutions available in the solution branch
 - [x] Problem 1: Two Sum (easy)
@@ -103,7 +205,7 @@ Here is the list of problems with solutions available in the solution branch
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 </details>
 
-## 🔥 Next Steps
+### 🔥 Next Steps
  
 On top of adding solutions and tests to the repo (bold are bigger tasks)
 
@@ -132,9 +234,9 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] **Eventually also in C**
 - [ ] **Make it so the user can easily setup github runner for them**
 
-## Clear actionnable next steps
+### Clear actionnable next steps
 
-### Phase 1: Initial Homebrew Package
+#### Phase 1: Initial Homebrew Package
 
 - [ ] Add version command to bash script
 - [ ] Create GitHub release tag (v0.1.0)
@@ -142,7 +244,7 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] Set up Homebrew tap repository
 - [ ] Test installation locally
 
-### Phase 2: C++ Transition
+#### Phase 2: C++ Transition
 
 - [ ] Create C++ CLI entry point
 - [ ] Implement core commands in C++
@@ -153,7 +255,7 @@ On top of adding solutions and tests to the repo (bold are bigger tasks)
 - [ ] Update Homebrew formula to support dual implementation
 - [ ] Create incremental releases (v0.2.0, v0.3.0, etc.)
 
-### Phase 3: Polish & Optimization
+#### Phase 3: Polish & Optimization
 
 - [ ] Add man pages
 - [ ] Add shell completions
