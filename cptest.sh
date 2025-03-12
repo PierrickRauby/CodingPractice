@@ -8,6 +8,9 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 
+# Define version
+VERSION="0.1.0"
+
 # Default directory structure
 SOLUTIONS_DIR="solutions"
 TESTS_DIR="tests/problems"
@@ -25,6 +28,7 @@ print_usage() {
     echo -e "  ${YELLOW}create <problem_name>${NC}    Create test files for a problem"
     echo -e "  ${YELLOW}check-missing${NC}            Check for missing solutions or tests"
     echo -e "  ${YELLOW}clean${NC}                    Remove build directory and start fresh"
+    echo -e "  ${YELLOW}version${NC}                  Display version information"
     echo -e "  ${YELLOW}help${NC}                     Show this help message"
     echo
     echo -e "${BLUE}Examples:${NC}"
@@ -33,6 +37,22 @@ print_usage() {
     echo -e "  ${GREEN}./cptest.sh${NC} ${YELLOW}create${NC} problem2"
     echo -e "  ${GREEN}./cptest.sh${NC} ${YELLOW}check-missing${NC}"
     echo -e "  ${GREEN}./cptest.sh${NC} ${YELLOW}clean${NC}"
+    echo -e "  ${GREEN}./cptest.sh${NC} ${YELLOW}version${NC}"
+}
+
+# Display version information
+display_version() {
+    echo -e "${BLUE}cptest${NC} version ${GREEN}$VERSION${NC}"
+    echo -e "A command-line tool for testing C++ practice implementations"
+}
+
+# Check if a test exists for a problem
+check_test_exists() {
+    local problem_name=$1
+    if [ ! -d "$TESTS_DIR/$problem_name" ]; then
+        return 1
+    fi
+    return 0
 }
 
 # Check if a test exists for a problem
@@ -355,6 +375,7 @@ clean_build() {
     fi
 }
 
+
 # Main execution logic
 main() {
     # Check if a command was provided
@@ -393,6 +414,9 @@ main() {
             ;;
         clean-build)
             clean_build
+            ;;
+        version)
+            display_version
             ;;
         help)
             print_usage
