@@ -8,6 +8,8 @@ on:
       - solutions
       - dev
       - InvestigateTestFailures
+      - updated-ci
+
   pull_request:
     branches:
       - main
@@ -15,6 +17,7 @@ on:
       - solutions
       - dev
       - InvestigateTestFailures
+      - updated-ci
 
 jobs:
   build:
