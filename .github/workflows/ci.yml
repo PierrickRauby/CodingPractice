@@ -9,7 +9,6 @@ on:
       - dev
       - InvestigateTestFailures
       - updated-ci
-
   pull_request:
     branches:
       - main
@@ -24,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Install CMake and dependencies
         run: |
@@ -45,7 +44,7 @@ jobs:
         run: cmake --build build
         
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: build/*
@@ -55,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Install dependencies
         run: |
@@ -63,7 +62,7 @@ jobs:
           sudo apt-get install -y cmake libgtest-dev
           
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-artifacts
           path: build/
