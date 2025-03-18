@@ -8,7 +8,6 @@ on:
       - solutions
       - dev
       - InvestigateTestFailures
-      - updated-ci
   pull_request:
     branches:
       - main
@@ -16,7 +15,6 @@ on:
       - solutions
       - dev
       - InvestigateTestFailures
-      - updated-ci
 
 jobs:
   build:
@@ -44,7 +42,7 @@ jobs:
         run: cmake --build build
         
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
           path: build/
@@ -62,7 +60,7 @@ jobs:
           sudo apt-get install -y cmake libgtest-dev
           
       - name: Download build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-artifacts
           path: build/
