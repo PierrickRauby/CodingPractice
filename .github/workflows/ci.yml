@@ -1,5 +1,4 @@
 name: CI
-
 on:
   push:
     branches:
@@ -21,28 +20,52 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install CMake and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libgtest-dev build-essential clang-format
+      
+      - name: Build and install Google Test
+        run: |
+          cd /usr/src/gtest
+          sudo cmake .
+          sudo make
+          sudo cp ./lib/*.a /usr/lib
+      
+      - name: Configure the project
+        run: cmake -S . -B build
+      
+      - name: Build the project
+        run: cmake --build build
+        
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: build/
+          retention-days: 1
 
-    - name: Install CMake and dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake libgtest-dev build-essential clang-format
-
-    - name: Build and install Google Test
-      run: |
-        cd /usr/src/gtest
-        sudo cmake .
-        sudo make
-        sudo cp ./lib/*.a /usr/lib
-
-    - name: Configure the project
-      run: cmake -S . -B build
-
-    - name: Build the project
-      run: cmake --build build
-
-    - name: Run tests
-      run: ctest --test-dir build --output-on-failure
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libgtest-dev
+      
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: build/
+          
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
