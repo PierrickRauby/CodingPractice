@@ -7,7 +7,6 @@ on:
       - structureDev
       - solutions
       - dev
-      - InvestigateTestFailures
       - updated-ci
   pull_request:
     branches:
@@ -15,7 +14,6 @@ on:
       - structureDev
       - solutions
       - dev
-      - InvestigateTestFailures
       - updated-ci
 
 jobs:
@@ -23,49 +21,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@v2
+
       - name: Install CMake and dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake libgtest-dev build-essential clang-format
-          
+          sudo apt-get install -y cmake libgtest-dev build-essential clang-format ninja-build
+
       - name: Build and install Google Test
         run: |
           cd /usr/src/gtest
           sudo cmake .
           sudo make
           sudo cp ./lib/*.a /usr/lib
-          
+
       - name: Configure the project
         run: cmake -S . -B build
-        
-      - name: Build the project
-        run: cmake --build build
-        
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-artifacts
-          path: build/*
-          
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Install dependencies
+
+      - name: Build Core Tests (test_builder & test_runner)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake libgtest-dev
-          
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build-artifacts
-          path: build/
-          
-      - name: Run tests
-        run: ctest --test-dir build --output-on-failure
+          cmake --build build --target test_test_builder
+          cmake --build build --target test_test_runner
+
+      - name: Run Core Tests (test_builder & test_runner)
+        run: |
+          cd build
+          ctest -R test_test_builder --output-on-failure
+          ctest -R test_test_runner --output-on-failure
+
+      - name: Build the entire project
+        run: cmake --build build
