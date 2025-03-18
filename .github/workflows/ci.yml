@@ -43,7 +43,7 @@ jobs:
         run: cmake --build build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: build-artifacts
           path: build/
@@ -53,10 +53,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.1.2
         with:
           name: build-artifacts
           path: build
 
       - name: Run tests
         run: ctest --test-dir build --output-on-failure
+a
